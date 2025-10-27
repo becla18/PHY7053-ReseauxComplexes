@@ -28,5 +28,5 @@ for i, R0 in enumerate(R0_list[::-1]):
         plt.plot(time, time*0+(1 - 1/R0), '--', color='#353535ff', linewidth=1.2)
 plt.xlim(t0, t1)
 plt.legend()
-# plt.savefig('2e_a.pdf')
+# plt.savefig('1e_a.pdf')
 plt.show()

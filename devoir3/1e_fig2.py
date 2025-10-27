@@ -33,5 +33,5 @@ for i, R0 in enumerate(R0_list[::-1]):
     plt.plot(time, i_t_analytical_list[-1-i], '--', color='#353535ff', linewidth=1.2)
 plt.xlim(t0, t1)
 plt.legend()
-plt.savefig('2e_a_fig2.pdf')
+plt.savefig('1e_a_fig2.pdf')
 plt.show()
