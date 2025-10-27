@@ -7,7 +7,7 @@ from scipy.special import factorial
 # INTEGRATE MASS-ACTION SYSTEM
 
 # dynamical parameters
-R0_MA_list = [3]
+R0_MA_list = [0.5, 2, 3]
 t0, t1 = (0, 6)
 time = np.linspace(t0, t1, 1000)
 i0 = [0.01]
@@ -30,14 +30,16 @@ for R0 in R0_MA_list:
 k_max = 10
 k = np.arange(0, k_max+1, 1)
 print(k)
-exp_k = 3.
-k_dist = np.exp(-exp_k) * exp_k**(k) / factorial(k)
+exp_k = 2.
+k_dist = [0 for _ in k]
+k_dist[int(exp_k)] = 1.
+k_dist = np.array(k_dist)
+print(k_dist)
 print(np.sum(k_dist))
 
 # Theta function
 def Theta(ik, exp_k, k):
     return 1/exp_k * np.sum(k * k_dist * ik)
-    # return np.exp(-exp_k) * np.sum(k * exp_k**(k - 1) * ik / factorial(k))
 
 # dynamical equations
 def ik_dot(t, ik, R0, exp_k, k):
@@ -51,7 +53,7 @@ ik_trajectories = []
 
 for R0_MA in R0_MA_list:
     # compute DBMF R0 parameter
-    R0 = R0_MA / exp_k * 1.2
+    R0 = R0_MA / exp_k
 
     # integrate the equation
     sol = solve_ivp(ik_dot, (t0, t1), ik0, args=(R0, exp_k, k), t_eval = time, rtol=1e-10)
@@ -64,25 +66,10 @@ for R0_MA in R0_MA_list:
 
 ik_trajectories = np.array(ik_trajectories)
 
-cmap = plt.get_cmap('Blues')
-
-plt.figure()
-for i, R0_MA in enumerate(R0_MA_list[::-1]):
-    for i in k[::-1]:
-        plt.plot(time, ik_trajectories[:, i][0], linewidth=1, color=cmap(i / (k_max) +0.1), label=f"$k={i}$")
-        plt.plot(time, [eq_point_k[i] for _ in time], '--', linewidth=1, color='#353535ff')
-plt.xlim(t0, t1)
-plt.ylabel('$i_k$')
-plt.xlabel('$t$')
-plt.legend()
-plt.savefig('1j_a.pdf')
-plt.show()
-
 plt.figure()
 for i, R0_MA in enumerate(R0_MA_list[::-1]):
     plt.plot(time, i_t_list[-1-i], label=f"Action de masse ($R_0 = {R0_MA})$")
-    plt.plot(time, dbmf_i_t_list[-1-i], label=f"Champ moyen hétérogène ($R_0 = {R0_MA / exp_k * 1.2}$)")
-    plt.plot(time, [eq_point for _ in time], '--', color='#353535ff')
+    plt.plot(time, dbmf_i_t_list[-1-i], '--', color='#353535ff', label=f"Champ moyen hétérogène ($R_0 = {R0_MA / exp_k}$)")
 plt.xlim(t0, t1)
 plt.ylabel('$i$')
 plt.xlabel('$t$')
