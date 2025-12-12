@@ -1,4 +1,5 @@
 import numpy as np
+from scipy.special import xlogy
 
 
 # define the various metrics and related functions
@@ -94,4 +95,18 @@ def motifs6(B):
     return 1/4 * np.trace(Z @ (Z - np.ones(Z.shape)).T) - 1/4 * np.dot(d, (d - np.ones(d.shape)))
 
 def niche_overlap(B):
-    pass
+    # compute number of nodes and degree sequences
+    N1, N2 = B.shape
+    d1 = np.sum(B, axis=1)
+    d2 = np.sum(B, axis=0)
+
+    B_over_d = B / np.outer(np.ones(B.shape[0]), d2)
+    
+    Ro = 0
+    for alpha in range(N2):
+        for delta in np.arange(alpha, N2, 1):
+            al = B_over_d[:, alpha] 
+            de = B_over_d[:, delta] 
+            Ro += 1 / (2*np.log(2)) * np.sum(xlogy(al + de, al + de) - xlogy(al, al) - xlogy(de, de))
+    
+    return 2 / (N2 * (N2 - 1)) * Ro

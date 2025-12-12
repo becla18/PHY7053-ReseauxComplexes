@@ -27,7 +27,7 @@ for _ in range(n_graphs):
     biadj_matrices.append((np.random.random((N1, N2)) < p).astype(int))
 
 # verify that the probabilites are respected
-print(np.mean(np.abs(sum(biadj_matrices) / len(biadj_matrices) - p)))
+print(np.max(np.abs(sum(biadj_matrices) / len(biadj_matrices) - p)))
 
 # save the sampled biadjacency matrices
 np.save("devoir4/canon_biadj_matrices.npy", biadj_matrices)

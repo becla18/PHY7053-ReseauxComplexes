@@ -21,7 +21,6 @@ for B_mic in tqdm(microcan_matrices):
     assort_microcan.append(assortativity_degrees(B_mic))
 
 # compare assortativity coefficients
-print(assort_canon)
 plt.figure()
 plt.hist(assort_canon, bins=50, label='canon', color="#1f63b066")
 plt.hist(assort_microcan, bins=50, label='microcan', color="#e2873166")

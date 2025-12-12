@@ -20,13 +20,6 @@ nodf_microcan = []
 for B_mic in tqdm(microcan_matrices):
     nodf_microcan.append(nodf(B_mic))
 
-# plt.imshow(microcan_matrices[0])
-# plt.show()
-# plt.imshow(microcan_matrices[10])
-# plt.show()
-# plt.imshow(B)
-# plt.show()
-
 # compare assortativity coefficients
 plt.figure()
 # plt.hist(nodf_canon, label='canon', color="#1f63b066")
