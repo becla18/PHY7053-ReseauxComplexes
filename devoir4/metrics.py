@@ -4,6 +4,7 @@ from scipy.special import xlogy
 
 # define the various metrics and related functions
 
+
 # assortativity
 def assortativity_degrees(B):
     # compute the degree sequences and total number of links
@@ -22,7 +23,8 @@ def assortativity_degrees(B):
     return (num / denom)[0, 0]
 
 # spectral radius
-def spectral_radius(M):
+def spectral_radius(B):
+    M = np.block([[np.zeros((B.shape[0], B.shape[0])), B], [B.T, np.zeros((B.shape[1], B.shape[1]))]])
     return np.max(np.abs(np.linalg.eigvals(M)))
 
 # NODF nestedness index
@@ -94,11 +96,20 @@ def motifs6(B):
     d = np.sum(B, axis=1)
     return 1/4 * np.trace(Z @ (Z - np.ones(Z.shape)).T) - 1/4 * np.dot(d, (d - np.ones(d.shape)))
 
+
+# for niche overlap, when computing the degrees, set null degrees to small value to avoid errors
+def set_zeros_to_epsilon(v, epsilon=10**(-2)):
+    v = v.astype(float)
+    v[v==0] = epsilon
+    return v
+
 def niche_overlap(B):
     # compute number of nodes and degree sequences
     N1, N2 = B.shape
-    d1 = np.sum(B, axis=1)
     d2 = np.sum(B, axis=0)
+
+    # correct for zero degrees (necessary for canonical ensemble)
+    # d2 = set_zeros_to_epsilon(d2) 
 
     B_over_d = B / np.outer(np.ones(B.shape[0]), d2)
     
