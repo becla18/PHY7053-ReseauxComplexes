@@ -1,6 +1,7 @@
 import numpy as np
 from tqdm import tqdm
 from curveball import *
+import matplotlib.pyplot as plt
 
 
 # Generate a sample of the microcanonical configuration model for bipartite graphs
@@ -15,9 +16,9 @@ d2 = np.sum(original_B, axis=0)
 n_matrices = 10**4
 microcan_matrices = []
 for _ in tqdm(range(n_matrices)):
-    B = original_B
+    B = original_B.copy()
     for _ in range(1000):
-        curveball_iter(B)
+        B = curveball_iter(B)
     microcan_matrices.append(B)
 
 d1_2 = np.sum(B, axis=1)
