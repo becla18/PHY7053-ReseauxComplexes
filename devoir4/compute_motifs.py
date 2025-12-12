@@ -25,11 +25,11 @@ for B_mic in tqdm(microcan_matrices):
 
 # compare the occurence of motif 5
 plt.figure()
-plt.hist(motifs5_canon, bins=40, label='Canonical', color="#1f63b066")
-plt.hist(motifs5_microcan, bins=40, label='Microcanonical', color="#e2873166")
-plt.axvline(motifs5_emp, label='Empirical', linestyle='--', color='#353535ff')
-plt.ylabel('Number of graphs')
-plt.xlabel('Occurences of motif 5')
+plt.hist(motifs5_canon, bins=40, label='Canonique', color="#1f63b066")
+plt.hist(motifs5_microcan, bins=40, label='Microcanonique', color="#e2873166")
+plt.axvline(motifs5_emp, label='Empirique', linestyle='--', color='#353535ff')
+plt.ylabel('Nombre de graphes')
+plt.xlabel('Occurences du motif 5')
 plt.legend()
 plt.savefig('devoir4/figures/motif5.pdf')
 plt.show()
@@ -57,11 +57,11 @@ for B_mic in tqdm(microcan_matrices):
 
 # compare the occurence of motif 6
 plt.figure()
-plt.hist(motifs6_canon, bins=40, label='Canonical', color="#1f63b066")
-plt.hist(motifs6_microcan, bins=40, label='Microcanonical', color="#e2873166")
-plt.axvline(motifs6_emp, label='Empirical', linestyle='--', color='#353535ff')
-plt.ylabel('Number of graphs')
-plt.xlabel('Occurences of motif 6')
+plt.hist(motifs6_canon, bins=40, label='Canonique', color="#1f63b066")
+plt.hist(motifs6_microcan, bins=40, label='Microcanonique', color="#e2873166")
+plt.axvline(motifs6_emp, label='Empirique', linestyle='--', color='#353535ff')
+plt.ylabel('Nombre de graphes')
+plt.xlabel('Occurences du motif 6')
 plt.legend()
 plt.savefig('devoir4/figures/motif6.pdf')
 plt.show()

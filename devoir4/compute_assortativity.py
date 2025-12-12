@@ -22,11 +22,11 @@ for B_mic in tqdm(microcan_matrices):
 
 # compare assortativity coefficients
 plt.figure()
-plt.hist(assort_canon, bins=50, label='Canonical', color="#1f63b066")
-plt.hist(assort_microcan, bins=50, label='Microcanonical', color="#e2873166")
-plt.axvline(assort_emp, label='empirical', linestyle='--', color='#353535ff')
-plt.ylabel('Number of graphs')
-plt.xlabel('Degree assortativity')
+plt.hist(assort_canon, bins=50, label='Canonique', color="#1f63b066")
+plt.hist(assort_microcan, bins=50, label='Microcanonique', color="#e2873166")
+plt.axvline(assort_emp, label='Empirique', linestyle='--', color='#353535ff')
+plt.ylabel('Nombre de graphes')
+plt.xlabel('Assortativité des degrés')
 plt.legend()
 plt.savefig('devoir4/figures/assortativity.pdf')
 plt.show()

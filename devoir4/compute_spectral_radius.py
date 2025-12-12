@@ -23,11 +23,11 @@ for B_mic in tqdm(microcan_matrices):
 
 # compare the occurence of motif 5
 plt.figure()
-plt.hist(specrad_canon, bins=40, label='Canonical', color="#1f63b066")
-plt.hist(specrad_microcan, bins=40, label='Microcanical', color="#e2873166")
-plt.axvline(specrad_emp, label='Empirical', linestyle='--', color='#353535ff')
-plt.ylabel('Number of graphs')
-plt.xlabel('Spectral radius')
+plt.hist(specrad_canon, bins=40, label='Canonique', color="#1f63b066")
+plt.hist(specrad_microcan, bins=40, label='Microcanonique', color="#e2873166")
+plt.axvline(specrad_emp, label='Empirique', linestyle='--', color='#353535ff')
+plt.ylabel('Nombre de graphes')
+plt.xlabel('Rayon spectral')
 plt.legend()
 plt.savefig('devoir4/figures/spectral_radius.pdf')
 plt.show()
