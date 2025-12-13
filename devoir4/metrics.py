@@ -96,13 +96,6 @@ def motifs6(B):
     d = np.sum(B, axis=1)
     return 1/4 * np.trace(Z @ (Z - np.ones(Z.shape)).T) - 1/4 * np.dot(d, (d - np.ones(d.shape)))
 
-
-# for niche overlap, when computing the degrees, set null degrees to small value to avoid errors
-def set_zeros_to_epsilon(v, epsilon=10**(-2)):
-    v = v.astype(float)
-    v[v==0] = epsilon
-    return v
-
 def niche_overlap(B):
     # compute number of nodes and degree sequences
     N1, N2 = B.shape
@@ -121,3 +114,10 @@ def niche_overlap(B):
             Ro += 1 / (2*np.log(2)) * np.sum(xlogy(al + de, al + de) - xlogy(al, al) - xlogy(de, de))
     
     return 2 / (N2 * (N2 - 1)) * Ro
+
+
+# utility function to remove nodes of null degree from the biadjacency matrix
+def remove_null_rows_cols(B):
+    B = B[~np.all(B == 0, axis=1)]
+    B = B[:, ~np.all(B == 0, axis=0)]
+    return B

@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from tqdm import tqdm
-from metrics import stable_nodf
+from metrics import stable_nodf, remove_null_rows_cols
 
 
 # empirical network
@@ -13,6 +13,7 @@ canon_matrices = np.load("devoir4/canon_biadj_matrices.npy")
 stable_nodf_canon = []
 print('Canonical ensemble...')
 for B_can in tqdm(canon_matrices):
+    B_can = remove_null_rows_cols(B_can)
     stable_nodf_canon.append(stable_nodf(B_can))
 
 # microcanonical ensemble
@@ -24,11 +25,11 @@ for B_mic in tqdm(microcan_matrices):
 
 # compare assortativity coefficients
 plt.figure()
-plt.hist(stable_nodf_canon, label='canon', color="#1f63b066")
-plt.hist(stable_nodf_microcan, bins=50, label='microcan', color="#e2873166")
-plt.axvline(stable_nodf_emp, label='empirical', linestyle='--', color='#353535ff')
-plt.yaxis('Number of graphs')
-plt.xaxis('Stable NODF')
+plt.hist(stable_nodf_canon, bins=50, label='Canonique', color="#1f63b066")
+plt.hist(stable_nodf_microcan, bins=50, label='Microcanonique', color="#e2873166")
+plt.axvline(stable_nodf_emp, label='Empirique', linestyle='--', color='#353535ff')
+plt.ylabel('Nombre de graphes')
+plt.xlabel('Stable NODF')
 plt.legend()
-plt.savefig('figures/stable_nodf.pdf')
+plt.savefig('devoir4/figures/stable_nodf.pdf')
 plt.show()
